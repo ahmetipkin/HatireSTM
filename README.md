@@ -16,3 +16,10 @@ Use OpenTrack or similar software and chose Hatire or Hat as 'plugin source'.
 The chip will not submit input until it calibrates itself after 'I' command. Button 32 (maple's onboard button) can be used to 'bail' from initial calibration. In normal run; it invokes calibration by hand. Of course; command 'C' does work too.
 
 Enjoy!
+
+
+## Used Libraries
+
+* Adafruit Unified Sensor Library
+* Adafruit BNO055 Library
+* EEPROM (for saving calibration)
