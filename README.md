@@ -3,7 +3,7 @@ Hat Tracking implementation compatible with 'Hatire' protocol using BNO055 DOF a
 
 Based on OpenTrack's Hatire plugin and Arduino counterpart; I've implemented this.
 
-Generally other trackers use MPU9250 or similar sensors; but I found them quite hard to calibrate. For some reason they just didn't <track me well> :)
+Generally other trackers use MPU9250 or similar sensors; but I found them quite hard to calibrate. For some reason they just didn't "track me well" :)
 
 Enter BNO055.. I learned about this IC when looking for alternatives and I'm loving it! So easy to use and very accurate. A tad more pricy but still good.
 
