@@ -121,7 +121,6 @@ void loop() {
         bno.getEvent(&measurement, Adafruit_BNO055::VECTOR_EULER);
         bno.getEvent(&acceleration, Adafruit_BNO055::VECTOR_LINEARACCEL);
 
-        float adjX = measurement.orientation.x > 180.0 ? measurement.orientation.x - 360.0 : measurement.orientation.x;
         if (AskCalibrate) {
             if (CptCal >= NbCal) {
                 CptCal = 0;
@@ -131,7 +130,7 @@ void loop() {
                 AskCalibrate = false;
                 SaveParams();
             } else {
-                calibrationOffsets.orientation.orientation.x += adjX;
+                calibrationOffsets.orientation.orientation.x += measurement.orientation.x;
                 calibrationOffsets.orientation.orientation.y += measurement.orientation.y;
                 calibrationOffsets.orientation.orientation.z += measurement.orientation.z;
 
@@ -145,10 +144,12 @@ void loop() {
             hatire.acc[1] = 0;
             hatire.acc[2] = 0;
         } else {
+            float rawX = measurement.orientation.x - calibrationOffsets.orientation.orientation.x;
+
             // order: z , y , x
             hatire.gyro[0] = measurement.orientation.z - calibrationOffsets.orientation.orientation.z;
             hatire.gyro[1] = measurement.orientation.y - calibrationOffsets.orientation.orientation.y;
-            hatire.gyro[2] = adjX - calibrationOffsets.orientation.orientation.x;
+            hatire.gyro[2] =  rawX > 180.0 ? rawX - 360.0 : rawX; // map from 0-360 => -180 | 0 | +180  interval.
 
             hatire.acc[0] = acceleration.acceleration.x;
             hatire.acc[1] = acceleration.acceleration.y;
